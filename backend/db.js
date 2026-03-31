@@ -25,27 +25,27 @@ if (count.count === 0) {
     'INSERT INTO products (name, category, price, quantity, sku, description) VALUES (?, ?, ?, ?, ?, ?)'
   );
 
-  const products = [
-    ['Apple iPhone 15', 'Electronics', 999.99, 45, 'SKU-001', 'Latest Apple smartphone with A16 Bionic chip'],
-    ['Samsung 4K TV 55"', 'Electronics', 649.99, 12, 'SKU-002', '55-inch 4K Ultra HD Smart TV'],
-    ['Sony WH-1000XM5 Headphones', 'Electronics', 349.99, 30, 'SKU-003', 'Industry-leading noise cancelling wireless headphones'],
-    ['Nike Air Max 270', 'Footwear', 129.99, 75, 'SKU-004', 'Comfortable running shoes with Max Air unit'],
-    ['Levi\'s 501 Jeans', 'Clothing', 59.99, 120, 'SKU-005', 'Classic straight fit jeans'],
-    ['Patagonia Fleece Jacket', 'Clothing', 149.99, 40, 'SKU-006', 'Recycled polyester fleece jacket'],
-    ['KitchenAid Stand Mixer', 'Kitchen', 449.99, 18, 'SKU-007', '5-quart tilt-head stand mixer'],
-    ['Instant Pot Duo 7-in-1', 'Kitchen', 99.99, 55, 'SKU-008', 'Multi-use programmable pressure cooker'],
-    ['LEGO Star Wars Millennium Falcon', 'Toys', 849.99, 8, 'SKU-009', '7541-piece building set'],
-    ['Dyson V15 Vacuum', 'Home', 699.99, 20, 'SKU-010', 'Detect cordless vacuum cleaner'],
-    ['Vitamix Blender E310', 'Kitchen', 349.99, 25, 'SKU-011', 'Professional-grade blender'],
-    ['Kindle Paperwhite', 'Electronics', 139.99, 60, 'SKU-012', 'Waterproof e-reader with 6.8" display'],
-    ['Adidas Ultraboost 22', 'Footwear', 189.99, 50, 'SKU-013', 'High-performance running shoes'],
-    ['Lodge Cast Iron Skillet 12"', 'Kitchen', 49.99, 90, 'SKU-014', 'Pre-seasoned cast iron skillet'],
-    ['Apple AirPods Pro', 'Electronics', 249.99, 35, 'SKU-015', 'Active noise cancellation earbuds'],
-    ['Hydroflask 32oz Water Bottle', 'Sports', 44.99, 110, 'SKU-016', 'Double-wall vacuum insulated bottle'],
-    ['The North Face Backpack', 'Sports', 99.99, 42, 'SKU-017', '30L hiking daypack'],
-    ['Monopoly Board Game', 'Toys', 24.99, 65, 'SKU-018', 'Classic property trading board game'],
-    ['Yoga Mat Premium', 'Sports', 79.99, 38, 'SKU-019', 'Non-slip 6mm thick yoga mat'],
-    ['Philips Hue Starter Kit', 'Home', 199.99, 28, 'SKU-020', 'Smart LED bulbs with bridge and app control'],
+    const products = [
+    ['Philips Hue White & Color Starter Kit', 'Smart Lighting', 199.99, 42, 'SN-001', 'Includes 3 color-changing A19 bulbs and the Hue Bridge for full smart control'],
+    ['Lutron Caseta Wireless Dimmer Switch', 'Smart Lighting', 59.99, 85, 'SN-002', 'In-wall dimmer switch with Pico remote, works with Alexa and Google Home'],
+    ['Govee RGBIC LED Strip Lights 16ft', 'Smart Lighting', 34.99, 130, 'SN-003', 'Wi-Fi enabled multicolor LED strip with app and voice control'],
+    ['Google Nest Learning Thermostat', 'Smart Climate', 249.99, 38, 'SN-004', 'Self-learning thermostat that programs itself and saves up to 15% on energy bills'],
+    ['Ecobee SmartThermostat Premium', 'Smart Climate', 219.99, 30, 'SN-005', 'Built-in Alexa, room sensors, and air quality monitor for whole-home comfort'],
+    ['Honeywell Home T6 Pro Smart Thermostat', 'Smart Climate', 119.99, 55, 'SN-006', 'Flexible scheduling and geo-fencing via smartphone app'],
+    ['Ring Video Doorbell Pro 2', 'Smart Security', 249.99, 28, 'SN-007', 'Head-to-toe HD video, 3D motion detection, and two-way talk'],
+    ['Arlo Pro 4 Outdoor Security Camera', 'Smart Security', 199.99, 50, 'SN-008', '2K HDR color night vision, wire-free, spotlight and siren built-in'],
+    ['Google Nest Cam Indoor (Wired)', 'Smart Security', 99.99, 60, 'SN-009', '1080p HDR indoor camera with intelligent alerts and 3-hour event history'],
+    ['Wyze Cam v3 Indoor/Outdoor Camera', 'Smart Security', 35.99, 120, 'SN-010', '1080p color night vision, IP65 weatherproof, works with Alexa and Google'],
+    ['August Wi-Fi Smart Lock Pro', 'Smart Access', 229.99, 22, 'SN-011', 'Retrofit smart lock with auto-lock/unlock, DoorSense, and remote access'],
+    ['Yale Assure Lock 2 Touchscreen', 'Smart Access', 189.99, 18, 'SN-012', 'Keypad and app entry, Matter compatible, up to 250 unique access codes'],
+    ['Amazon Echo Show 10 (3rd Gen)', 'Hubs & Controllers', 249.99, 35, 'SN-013', '10.1" HD display that moves to face you, built-in Alexa smart home hub'],
+    ['Samsung SmartThings Hub v3', 'Hubs & Controllers', 129.99, 40, 'SN-014', 'Central hub for Zigbee, Z-Wave, and Wi-Fi smart home devices'],
+    ['Hubitat Elevation Home Automation Hub', 'Hubs & Controllers', 149.99, 25, 'SN-015', 'Local processing hub supporting Zigbee, Z-Wave, and LAN integrations'],
+    ['TP-Link Kasa Smart Plug EP25 (4-pack)', 'Smart Energy', 49.99, 95, 'SN-016', 'Energy monitoring smart outlet with scheduling and voice control support'],
+    ['Emporia Vue 2 Energy Monitor', 'Smart Energy', 89.99, 32, 'SN-017', 'Real-time whole-home energy monitoring with 16 circuit-level sensors'],
+    ['Google Nest Protect Smoke & CO Alarm', 'Smart Sensors', 119.99, 48, 'SN-018', 'Smart smoke and carbon monoxide alarm with phone alerts and self-testing'],
+    ['Fibaro Motion Sensor Z-Wave', 'Smart Sensors', 59.99, 70, 'SN-019', 'Multisensor measuring motion, temperature, light intensity, and vibration'],
+    ['Aeotec MultiSensor 7 (6-in-1)', 'Smart Sensors', 69.99, 55, 'SN-020', 'Detects motion, temperature, humidity, light, UV, and vibration via Z-Wave Plus'],
   ];
 
   const insertMany = db.transaction((items) => {
