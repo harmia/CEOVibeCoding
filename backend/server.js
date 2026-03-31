@@ -122,6 +122,48 @@ app.delete('/api/products/:id', (req, res) => {
   res.json({ message: 'Product deleted successfully' });
 });
 
+// GET all home devices (joined with product info)
+app.get('/api/home-devices', (req, res) => {
+  const devices = db.prepare(`
+    SELECT hd.id, hd.room, hd.added_at,
+           p.id as product_id, p.name, p.category, p.price, p.sku, p.description, p.quantity
+    FROM home_devices hd
+    JOIN products p ON hd.product_id = p.id
+    ORDER BY hd.room ASC, p.name ASC
+  `).all();
+  res.json(devices);
+});
+
+// POST add device to home
+app.post('/api/home-devices', (req, res) => {
+  const { product_id, room } = req.body;
+  if (!product_id) {
+    return res.status(400).json({ error: 'Missing required field: product_id' });
+  }
+  const product = db.prepare('SELECT * FROM products WHERE id = ?').get(product_id);
+  if (!product) return res.status(404).json({ error: 'Product not found' });
+
+  const result = db.prepare(
+    'INSERT INTO home_devices (product_id, room) VALUES (?, ?)'
+  ).run(product_id, room?.trim() || 'General');
+
+  const device = db.prepare(`
+    SELECT hd.id, hd.room, hd.added_at,
+           p.id as product_id, p.name, p.category, p.price, p.sku, p.description, p.quantity
+    FROM home_devices hd
+    JOIN products p ON hd.product_id = p.id
+    WHERE hd.id = ?
+  `).get(result.lastInsertRowid);
+  res.status(201).json(device);
+});
+
+// DELETE remove device from home
+app.delete('/api/home-devices/:id', (req, res) => {
+  const result = db.prepare('DELETE FROM home_devices WHERE id = ?').run(req.params.id);
+  if (result.changes === 0) return res.status(404).json({ error: 'Home device not found' });
+  res.json({ message: 'Device removed from home successfully' });
+});
+
 // GET categories
 app.get('/api/categories', (req, res) => {
   const categories = db.prepare('SELECT DISTINCT category FROM products ORDER BY category').all();
