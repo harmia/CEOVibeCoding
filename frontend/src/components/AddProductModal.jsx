@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CATEGORIES } from '../constants';
 
-const EMPTY = { name: '', category: CATEGORIES[0], price: '', quantity: '', sku: '', description: '' };
+const EMPTY = { name: '', category: CATEGORIES[0], price: '', quantity: '', sku: '', description: '', ha_supported: false };
 
 export default function AddProductModal({ onClose, onAdd }) {
   const [form, setForm] = useState(EMPTY);
@@ -9,7 +9,8 @@ export default function AddProductModal({ onClose, onAdd }) {
   const [saving, setSaving] = useState(false);
 
   function handleChange(e) {
-    setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setForm(f => ({ ...f, [e.target.name]: value }));
     setError('');
   }
 
@@ -98,6 +99,35 @@ export default function AddProductModal({ onClose, onAdd }) {
               <textarea name="description" value={form.description} onChange={handleChange} rows={2}
                 className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 resize-none"
                 placeholder="Brief product description..." />
+            </div>
+
+            <div className="col-span-2">
+              <label className="flex items-center gap-3 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  name="ha_supported"
+                  checked={form.ha_supported}
+                  onChange={handleChange}
+                  className="w-4 h-4 rounded border-gray-300 text-[#18BCF2] focus:ring-[#18BCF2] accent-[#18BCF2]"
+                />
+                <span className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#18BCF2] flex-shrink-0">
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                      <path d="M21.803 10.822 12.896 2.01A1.263 1.263 0 0 0 12 1.61c-.336 0-.66.13-.896.4L2.196 10.822a.752.752 0 0 0 .527 1.283H4.27v9.188c0 .415.335.75.75.75H9.67a.75.75 0 0 0 .75-.75v-5.9h3.16v5.9c0 .415.336.75.75.75h4.65a.75.75 0 0 0 .75-.75v-9.188h1.547a.752.752 0 0 0 .527-1.283z"/>
+                    </svg>
+                  </span>
+                  Supports Home Assistant integration
+                  <a
+                    href="https://www.home-assistant.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#0A7EAD] hover:underline font-normal"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    (learn more)
+                  </a>
+                </span>
+              </label>
             </div>
           </div>
 

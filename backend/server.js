@@ -54,7 +54,7 @@ app.get('/api/products/:id', (req, res) => {
 
 // POST create product
 app.post('/api/products', (req, res) => {
-  const { name, category, price, quantity, sku, description } = req.body;
+  const { name, category, price, quantity, sku, description, ha_supported } = req.body;
 
   if (!name || !category || price == null || quantity == null || !sku) {
     return res.status(400).json({ error: 'Missing required fields: name, category, price, quantity, sku' });
@@ -62,8 +62,8 @@ app.post('/api/products', (req, res) => {
 
   try {
     const result = db.prepare(
-      'INSERT INTO products (name, category, price, quantity, sku, description) VALUES (?, ?, ?, ?, ?, ?)'
-    ).run(name, category, price, quantity, sku, description || '');
+      'INSERT INTO products (name, category, price, quantity, sku, description, ha_supported) VALUES (?, ?, ?, ?, ?, ?, ?)'
+    ).run(name, category, price, quantity, sku, description || '', ha_supported ? 1 : 0);
     const product = db.prepare('SELECT * FROM products WHERE id = ?').get(result.lastInsertRowid);
     res.status(201).json(product);
   } catch (err) {
@@ -88,7 +88,7 @@ app.patch('/api/products/:id/quantity', (req, res) => {
 
 // PATCH update product
 app.patch('/api/products/:id', (req, res) => {
-  const { name, category, price, quantity, sku, description } = req.body;
+  const { name, category, price, quantity, sku, description, ha_supported } = req.body;
   const product = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
   if (!product) return res.status(404).json({ error: 'Product not found' });
 
@@ -99,12 +99,13 @@ app.patch('/api/products/:id', (req, res) => {
     quantity: quantity ?? product.quantity,
     sku: sku ?? product.sku,
     description: description ?? product.description,
+    ha_supported: ha_supported != null ? (ha_supported ? 1 : 0) : product.ha_supported,
   };
 
   try {
     db.prepare(
-      'UPDATE products SET name=?, category=?, price=?, quantity=?, sku=?, description=? WHERE id=?'
-    ).run(updated.name, updated.category, updated.price, updated.quantity, updated.sku, updated.description, req.params.id);
+      'UPDATE products SET name=?, category=?, price=?, quantity=?, sku=?, description=?, ha_supported=? WHERE id=?'
+    ).run(updated.name, updated.category, updated.price, updated.quantity, updated.sku, updated.description, updated.ha_supported, req.params.id);
     const result = db.prepare('SELECT * FROM products WHERE id = ?').get(req.params.id);
     res.json(result);
   } catch (err) {

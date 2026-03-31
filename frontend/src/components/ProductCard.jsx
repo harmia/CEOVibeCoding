@@ -26,9 +26,28 @@ export default function ProductCard({ product, onQuantityChange, onDelete }) {
 
       {/* Body */}
       <div className="px-5 py-4 flex-1 flex flex-col gap-3">
-        <span className={`self-start text-xs font-medium px-2.5 py-0.5 rounded-full ${badge}`}>
-          {product.category}
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${badge}`}>
+            {product.category}
+          </span>
+          {product.ha_supported ? (
+            <a
+              href="https://www.home-assistant.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="This product supports Home Assistant integration — click to learn more"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#18BCF2]/10 text-[#0A7EAD] hover:bg-[#18BCF2]/25 transition-colors border border-[#18BCF2]/30"
+            >
+              {/* Official Home Assistant logo icon */}
+              <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#18BCF2] flex-shrink-0">
+                <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                  <path d="M21.803 10.822 12.896 2.01A1.263 1.263 0 0 0 12 1.61c-.336 0-.66.13-.896.4L2.196 10.822a.752.752 0 0 0 .527 1.283H4.27v9.188c0 .415.335.75.75.75H9.67a.75.75 0 0 0 .75-.75v-5.9h3.16v5.9c0 .415.336.75.75.75h4.65a.75.75 0 0 0 .75-.75v-9.188h1.547a.752.752 0 0 0 .527-1.283z"/>
+                </svg>
+              </span>
+              Home Assistant
+            </a>
+          ) : null}
+        </div>
 
         {product.description && (
           <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
