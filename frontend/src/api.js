@@ -43,3 +43,27 @@ export async function deleteProduct(id) {
   if (!res.ok) throw new Error(json.error || 'Failed to delete product');
   return json;
 }
+
+export async function fetchHomeDevices() {
+  const res = await fetch(`${API_BASE}/home-devices`);
+  if (!res.ok) throw new Error('Failed to fetch home devices');
+  return res.json();
+}
+
+export async function addHomeDevice(productId, room) {
+  const res = await fetch(`${API_BASE}/home-devices`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ product_id: productId, room }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error || 'Failed to add device to home');
+  return json;
+}
+
+export async function removeHomeDevice(id) {
+  const res = await fetch(`${API_BASE}/home-devices/${id}`, { method: 'DELETE' });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.error || 'Failed to remove device from home');
+  return json;
+}

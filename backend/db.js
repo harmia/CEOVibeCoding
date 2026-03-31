@@ -78,4 +78,15 @@ if (count.count === 0) {
   console.log('Database seeded with 20 products.');
 }
 
+// Create home_devices table
+db.exec(`
+  CREATE TABLE IF NOT EXISTS home_devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER NOT NULL,
+    room TEXT NOT NULL DEFAULT 'General',
+    added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+  )
+`);
+
 module.exports = db;
