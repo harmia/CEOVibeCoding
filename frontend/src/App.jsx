@@ -70,7 +70,7 @@ export default function App() {
     setProducts(prev => [...prev, product].sort((a, b) => a.name.localeCompare(b.name)));
     showToast(`✅ "${product.name}" added.`);
     if (!categories.includes(product.category)) {
-      setCategories(prev => [...prev.filter(c => c !== 'All'), product.category].sort().concat());
+      setCategories(prev => ['All', ...[...prev.filter(c => c !== 'All'), product.category].sort()]);
     }
   }
 
@@ -81,11 +81,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-cyan-400 rounded-xl flex items-center justify-center text-slate-900 text-xl font-bold shadow">
-              🏠
+              ⚡
             </div>
             <div>
-              <h1 className="text-white font-bold text-lg leading-tight">SmartNest</h1>
-              <p className="text-slate-400 text-xs">Inventory Management</p>
+              <h1 className="text-white font-bold text-lg leading-tight">SmartNest Pro</h1>
+              <p className="text-slate-400 text-xs">Professional Home Automation · HA-Ready Products</p>
             </div>
           </div>
 
